@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ashley Shifflett · AI and automation</title>
+<meta name="description" content="Ashley Shifflett sets up AI tools that take over repetitive work.">
+<meta property="og:title" content="Ashley Shifflett · AI and automation">
+<meta property="og:description" content="AI tools that take over repetitive work, with real examples of each.">
+<meta property="og:image" content="assets/ashley.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f2ea; --card:#fffdf9; --ink:#1c1a17; --body:#4a453e; --muted:#7c756b; --line:#e7e0d4;
+  --accent:#0f6b63; --accent-soft:#e2efeb; --warm:#b4532a; --warm-soft:#f6e6dc;
+  --serif:"Newsreader",Georgia,serif; --sans:"Public Sans",system-ui,-apple-system,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --r:28px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--body);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:var(--serif);color:var(--ink);font-weight:600;letter-spacing:-.015em;margin:0}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font:600 15px/1 var(--sans);text-decoration:none;border:1px solid transparent;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-line{border-color:#cfc6b8;color:var(--ink);background:#fff}
+.eyebrow{font:500 13px/1.4 var(--sans);color:var(--muted);letter-spacing:.02em}
+.tag{display:inline-block;font:600 11px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:6px 9px;border-radius:6px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:10;background:rgba(246,242,234,.88);backdrop-filter:blur(10px)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.logo{font:600 21px/1 var(--serif);color:var(--ink);text-decoration:none}
+.links{display:flex;gap:4px;background:#ece6db;padding:5px;border-radius:999px}
+.links a{text-decoration:none;font:500 14px/1 var(--sans);color:var(--ink);padding:9px 15px;border-radius:999px}
+.links a:hover{background:#fff}
+
+
+/* hero */
+.hero{background:var(--card);border-radius:var(--r);padding:56px 56px 0;overflow:hidden;margin-top:8px;box-shadow:0 1px 0 var(--line)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:end}
+.who{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.who img{width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:top;background:#eee}
+.who b{display:block;color:var(--ink);font-size:15px}
+.who span{font-size:13px;color:var(--muted)}
+.hero h1{font-size:clamp(42px,5.6vw,68px);line-height:1.02}
+.squiggle{margin:22px 0 22px;color:var(--warm)}
+.hero p.lede{font-size:19px;line-height:1.55;max-width:560px;margin:0 0 28px;color:var(--body)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.status{display:flex;gap:14px;flex-wrap:wrap;margin:20px 0 48px;font-size:13px;color:var(--muted)}
+.status b{color:var(--ink);font-weight:600}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#2f9e6e;margin-right:7px;box-shadow:0 0 0 4px #d9f0e4}
+.photo{align-self:stretch;display:flex;align-items:flex-end;justify-content:center;background:linear-gradient(180deg,#efe7da 0%,#e6dccb 100%);border-radius:22px 22px 0 0;overflow:hidden;min-height:420px}
+.photo img{width:88%;max-width:400px}
+
+/* proof strip */
+.proof{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);margin:0 -56px;padding:0}
+.proof div{padding:28px 28px 32px;border-right:1px solid var(--line)}
+.proof div:last-child{border-right:0}
+.proof strong{display:block;font:600 40px/1 var(--serif);color:var(--ink);margin-bottom:10px;letter-spacing:-.02em}
+.proof span{font-size:14px;line-height:1.45;display:block}
+
+/* sections */
+section{padding:110px 0 0}
+.head{text-align:center;max-width:720px;margin:0 auto 48px}
+.head h2{font-size:clamp(36px,4.4vw,54px);line-height:1.05;margin-bottom:16px}
+.head p{font-size:19px;margin:0}
+
+/* feature cards */
+.feature{background:var(--card);border-radius:var(--r);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;margin-bottom:28px;box-shadow:0 1px 0 var(--line)}
+.feature .text{padding:48px}
+.feature h3{font-size:clamp(28px,3vw,38px);line-height:1.1;margin:14px 0 18px}
+.feature ul{list-style:none;padding:0;margin:0 0 22px}
+.feature li{position:relative;padding-left:22px;margin:0 0 10px}
+.feature li:before{content:"";position:absolute;left:2px;top:.62em;width:8px;height:8px;border:2px solid var(--warm);border-radius:50%}
+.honest{font-size:14px;color:var(--muted);border-left:3px solid var(--line);padding:2px 0 2px 14px;margin:0 0 26px}
+.honest b{color:var(--ink);font-weight:600}
+.evidence{background:#f1ebe0;padding:40px;display:flex;flex-direction:column;gap:16px;justify-content:center}
+.ev-label{font:600 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono)}
+code,.k{font:400 .86em var(--mono);background:var(--warm-soft);color:#7a3417;padding:2px 6px;border-radius:5px}
+
+/* gate diagram */
+.flow{display:flex;flex-direction:column;gap:8px}
+.step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 16px;display:flex;justify-content:space-between;gap:14px;align-items:center;font-size:14px}
+.step b{color:var(--ink);font-weight:600}
+.step small{color:var(--muted);font-size:12.5px;text-align:right}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.out{border-radius:14px;padding:13px 16px;font-size:14px;font-weight:600;text-align:center}
+.out.send{background:var(--accent);color:#fff}
+.out.person{background:#fff;border:1px dashed #b9ae9d;color:var(--ink)}
+.shot{border-radius:14px;border:1px solid var(--line);overflow:hidden;background:#fff}
+.score{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.score div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+.score strong{display:block;font:600 28px/1 var(--serif);color:var(--ink)}
+.score span{font-size:12.5px;line-height:1.35;display:block;margin-top:6px}
+
+/* schedule */
+.sched{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.sched div{display:grid;grid-template-columns:118px 1fr;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line);font-size:14px}
+.sched div:last-child{border-bottom:0}
+.sched .t{font-family:var(--mono);font-size:12.5px;color:var(--accent);padding-top:2px}
+.sched b{color:var(--ink);font-weight:600}
+
+/* bars */
+.bar{display:grid;grid-template-columns:110px 1fr 70px;gap:12px;align-items:center;font-size:14px}
+.bar i{display:block;height:10px;border-radius:99px;background:var(--warm)}
+.bar .track{background:#e3dacb;border-radius:99px}
+.bar em{font:400 12.5px var(--mono);font-style:normal;color:var(--muted);text-align:right}
+
+/* before AI grid */
+.grid3{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.mini{background:var(--card);border-radius:22px;padding:30px;box-shadow:0 1px 0 var(--line);display:flex;flex-direction:column}
+.mini .num{font:600 34px/1 var(--serif);color:var(--accent);margin:18px 0 6px;letter-spacing:-.02em}
+.mini .numlab{font-size:13px;color:var(--muted);margin-bottom:16px}
+.mini h3{font-size:23px;line-height:1.2;margin:10px 0 0}
+.mini p{font-size:15.5px;margin:0 0 14px}
+.mini .honest{margin:auto 0 0;font-size:13.5px}
+
+/* loop */
+.loop{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
+.loop div{background:var(--card);border-radius:22px;padding:30px;box-shadow:0 1px 0 var(--line)}
+.loop div:before{counter-increment:s;content:"0" counter(s);font:400 13px var(--mono);color:var(--warm)}
+.loop h3{font-size:26px;margin:14px 0 10px}
+.loop p{font-size:15.5px;margin:0}
+
+/* about */
+.about{background:var(--card);border-radius:var(--r);padding:56px;display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;box-shadow:0 1px 0 var(--line)}
+.about h2{font-size:clamp(32px,3.6vw,44px);line-height:1.08}
+.about p{margin:0 0 18px}
+.skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.skills span{font-size:13px;background:#f1ebe0;color:var(--ink);padding:7px 12px;border-radius:999px}
+
+/* contact */
+.contact{border-top:1px solid var(--line);padding:64px 0 0;margin:110px 0 12px}
+.ct-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px 32px}
+.mail{font:500 clamp(22px,2.4vw,30px)/1.2 var(--serif);color:var(--ink);text-decoration:none;border-bottom:1px solid #cfc6b8;padding-bottom:2px;transition:border-color .3s,color .3s}
+.mail:hover{color:var(--accent);border-color:var(--accent)}
+.quiet{display:flex;gap:22px;margin-left:auto}
+.quiet a{font-size:14px;color:var(--muted);text-decoration:none}
+.quiet a:hover{color:var(--ink)}
+.navmail{font:500 14px/1 var(--sans);color:var(--ink);text-decoration:none;border-bottom:1px solid #cfc6b8;padding-bottom:3px}
+.navmail:hover{border-color:var(--ink)}
+footer{text-align:center;font-size:13px;color:var(--muted);padding:12px 0 48px}
+
+@media (max-width:980px){
+  .hero{padding:40px 32px 0}
+  .hero-grid,.feature,.about{grid-template-columns:1fr}
+  .photo{min-height:0}
+  .photo img{width:72%;max-width:340px}
+  .proof{grid-template-columns:repeat(2,1fr);margin:0 -32px}
+  .proof div:nth-child(2){border-right:0}
+  .proof div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .grid3{grid-template-columns:1fr 1fr}
+  .grid3>.mini,.grid3>.mini:nth-last-child(-n+2):nth-child(n+4){grid-column:auto}
+  .loop{grid-template-columns:1fr 1fr}
+  .links{display:none}
+  .about{padding:40px 32px;gap:28px}
+}
+@media (max-width:620px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  .hero{padding:32px 22px 0;border-radius:22px}
+  .proof{margin:0 -22px}
+  .proof div{padding:22px 18px}
+  .proof strong{font-size:32px}
+  .feature .text,.evidence{padding:28px 22px}
+  .grid3,.loop{grid-template-columns:1fr}
+  .score{grid-template-columns:1fr 1fr 1fr}
+  .bar{grid-template-columns:84px 1fr 56px}
+  .sched div{grid-template-columns:96px 1fr}
+  section{padding-top:80px}
+  .contact{margin-top:80px}
+  .quiet{margin-left:0}
+}
+
+
+.chat{display:flex;flex-direction:column;gap:8px}
+.chat+.chat{margin-top:10px;padding-top:16px;border-top:1px dashed #d9cfbf}
+.msg{background:#fff;border:1px solid var(--line);border-radius:16px 16px 16px 4px;padding:11px 14px;font-size:14px;line-height:1.5;max-width:90%;color:var(--ink)}
+.msg.reply{align-self:flex-end;background:var(--accent-soft);border-color:#c9e0d9;border-radius:16px 16px 4px 16px}
+.who-l{font:600 10.5px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.verdict{align-self:flex-end;font:600 12.5px/1 var(--sans);padding:8px 12px;border-radius:999px}
+.verdict.ok{background:var(--accent);color:#fff}
+.verdict.person{background:#fff;border:1px dashed #b9ae9d;color:var(--ink)}
+.feature .text p{margin:0 0 14px}
+
+.sites{margin-top:56px}
+.sites-head{display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap;margin-bottom:20px}
+.sites-head h3{font-size:23px;margin:0}
+.sites-head p{margin:0;color:var(--muted);font-size:15.5px}
+.sites-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.site{display:block;background:var(--card);border-radius:22px;overflow:hidden;box-shadow:0 1px 0 var(--line);text-decoration:none;color:inherit;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.site:hover{transform:translateY(-4px)}
+.site img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.site span{display:block;padding:18px 24px 22px;font-size:15px;color:var(--muted)}
+.site b{display:block;color:var(--ink);font-size:17px;margin-bottom:2px}
+.rescue{margin:22px 0 0;font-size:15.5px}
+@media (max-width:720px){.sites-grid{grid-template-columns:1fr}}
+.psr{display:grid;grid-template-columns:78px 1fr;gap:10px 16px;margin:0 0 24px}
+.psr dt{font:600 11px/1.9 var(--sans);letter-spacing:.09em;text-transform:uppercase;color:var(--warm)}
+.psr dd{margin:0;color:var(--body)}
+.psr ul.tight{margin:8px 0 0;padding:0;list-style:none}
+.psr ul.tight li{position:relative;padding-left:18px;margin:0 0 6px}
+.psr ul.tight li:before{content:"";position:absolute;left:2px;top:.6em;width:7px;height:7px;border:2px solid var(--warm);border-radius:50%}
+.mini .psr{grid-template-columns:1fr;gap:2px;margin:0}
+.mini .psr dt{margin-top:12px;line-height:1.4}
+.mini .psr dd{font-size:15.5px}
+.mini h3{margin:0 0 16px}
+.ba{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:600 13px/1.2 var(--sans);margin-bottom:6px}
+.ba .from{background:#f1ebe0;color:var(--muted);padding:8px 11px;border-radius:10px;text-decoration:line-through;text-decoration-color:#c4b8a6}
+.ba .to{background:var(--accent-soft);color:var(--accent);padding:8px 11px;border-radius:10px}
+.ba .arrow{color:var(--warm)}
+.ba.big{font-size:20px;gap:14px}
+.ba.big span{padding:16px 20px;border-radius:14px}
+/* ---------- motion ---------- */
+:root{--ease:cubic-bezier(.32,.72,0,1);--spring:cubic-bezier(.34,1.56,.64,1)}
+.hero h1 .mw{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em;margin-bottom:-.06em}
+.hero h1 .mw>span{display:inline-block}
+html.mo .hero h1 .mw>span{animation:rise 1.05s var(--ease) both;animation-delay:calc(var(--i)*.07s + .1s)}
+html.mo .who{animation:fadeup .9s var(--ease) both}
+html.mo .squiggle path{stroke-dasharray:90;stroke-dashoffset:90;animation:draw 1.2s .75s var(--ease) forwards}
+html.mo .hero p.lede{animation:fadeup 1s .45s var(--ease) both}
+html.mo .hero .cta,html.mo .hero .status{animation:fadeup 1s .6s var(--ease) both}
+html.mo .photo{animation:wipe 1.3s .2s var(--ease) both}
+html.mo .photo img{animation:settle 1.6s .2s var(--ease) both}
+@keyframes rise{from{transform:translateY(108%)}to{transform:none}}
+@keyframes fadeup{from{transform:translateY(22px);filter:blur(6px);opacity:0}to{transform:none;filter:none;opacity:1}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes wipe{from{clip-path:inset(100% 0 0 0 round 22px 22px 0 0)}to{clip-path:inset(0 0 0 0 round 22px 22px 0 0)}}
+@keyframes settle{from{transform:scale(1.08) translateY(18px)}to{transform:none}}
+
+html.mo [data-mo]{transition:transform 1s var(--ease) var(--d,0s),opacity 1s var(--ease) var(--d,0s),filter 1s var(--ease) var(--d,0s),clip-path 1.2s var(--ease) var(--d,0s)}
+html.mo [data-mo="up"]:not(.is-in){transform:translateY(34px);opacity:0;filter:blur(4px)}
+html.mo [data-mo="wipe"]:not(.is-in){clip-path:inset(0 0 100% 0)}
+html.mo [data-mo="wipe"].is-in{clip-path:inset(0 0 0 0)}
+
+/* gate lights up step by step */
+html.mo .flow .step,html.mo .flow .out{transition:transform .7s var(--spring),opacity .6s var(--ease),box-shadow .6s;transition-delay:var(--d,0s)}
+html.mo .evidence:not(.is-in) .flow .step{opacity:0;transform:translateX(-14px)}
+html.mo .evidence:not(.is-in) .flow .out{opacity:0;transform:scale(.85)}
+html.mo .evidence.is-in .flow .step{box-shadow:0 0 0 0 rgba(15,107,99,0)}
+.flow .step.lit{border-color:#9cc8bf;box-shadow:0 0 0 4px var(--accent-soft)}
+html.mo .evidence:not(.is-in) .bar i{transform:scaleX(0)}
+.bar i{transform-origin:left;transition:transform 1.4s var(--ease) .35s}
+html.mo .evidence:not(.is-in) .sched div{opacity:0;transform:translateY(10px)}
+.sched div{transition:opacity .6s var(--ease) var(--d,0s),transform .6s var(--ease) var(--d,0s)}
+
+/* cards lift */
+.mini,.loop div,.feature{transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.mini:hover,.loop div:hover{transform:translateY(-4px);box-shadow:0 18px 40px -24px rgba(28,26,23,.35)}
+
+/* cursor bubble */
+.bubble{--x:-300px;--y:-300px;position:fixed;left:0;top:0;z-index:50;pointer-events:none;display:flex;align-items:center;gap:7px;background:var(--ink);color:#fff;font:600 13px/1 var(--sans);padding:11px 15px;border-radius:999px;transform:translate(calc(var(--x) - 50%),calc(var(--y) - 50%)) scale(0);transition:transform .35s var(--spring)}
+.bubble.on{transform:translate(calc(var(--x) - 50%),calc(var(--y) - 50%)) scale(1)}
+.bubble svg{width:12px;height:12px;stroke:currentColor;stroke-width:1.8;fill:none}
+.has-bubble{cursor:none}
+a.evidence{text-decoration:none;color:inherit}
+
+/* signoff */
+.signoff{font:600 clamp(64px,12vw,150px)/.9 var(--serif);color:var(--ink);letter-spacing:-.035em;margin:56px 0 8px;user-select:none;display:flex;justify-content:center;overflow:hidden;padding-bottom:.08em}
+.signoff span{display:inline-block;transition:transform .6s var(--spring),color .4s}
+.signoff .sdot{color:var(--accent)}
+html.mo .contact:not(.is-in) .signoff span{transform:translateY(105%)}
+html.mo .contact .signoff span{transition:transform 1s var(--ease) calc(var(--i)*.06s + .2s),color .4s}
+.signoff span.lift{transform:translateY(-14%) !important;color:var(--accent);transition:transform .5s var(--spring),color .3s}
+
+@media (prefers-reduced-motion:reduce){
+  html.mo *{animation:none !important;transition:none !important}
+  html.mo [data-mo]:not(.is-in),html.mo .evidence:not(.is-in) *{opacity:1 !important;transform:none !important;filter:none !important;clip-path:none !important}
+}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:-8px 0 40px}.shots figure,.mini figure{margin:0}.shots img,.mini figure img{width:100%;display:block;border-radius:12px;border:1px solid rgba(0,0,0,.08)}.shots figcaption,.mini figcaption{font-size:12px;color:var(--muted);margin-top:6px}.mini figure{margin:4px 0 14px}.mini figure img{max-height:300px;object-fit:cover;object-position:top}@media(max-width:760px){.shots{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">Ashley Shifflett</a>
+    <div class="links">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+    </div>
+    <a class="navmail" href="#contact">Contact</a>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+
+  <header class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="who">
+          <img src="assets/ashley-head.webp" alt="">
+          <div><b>AI and automation</b><span>San Diego County, California</span></div>
+        </div>
+        <h1>Ashley Shifflett</h1>
+        <svg class="squiggle" width="64" height="12" viewBox="0 0 64 12" fill="none" aria-hidden="true"><path d="M2 8c5-6 10-6 15 0s10 6 15 0 10-6 15 0 10 6 15 0" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <p class="lede">AI automation engineer. Ashley designs, builds and runs production AI agent systems on Claude Code and OpenAI Codex, 20 of them running daily, on top of 8 years of Microsoft 365, Google Workspace and Zoho systems work.</p>
+        <div class="cta">
+          <a class="btn btn-dark" href="#work">See the work</a>
+        </div>
+        <div class="status"><span><b>20</b> systems running daily</span><span><b>4,265</b> market records</span><span><b>872,000</b> words transcribed</span></div>
+      </div>
+      <div class="photo"><img src="assets/ashley.webp" alt="Ashley Shifflett"></div>
+    </div>
+      </header>
+
+  <section id="work">
+    <div class="head">
+      <h2>Work</h2>
+    </div>
+
+    <article class="feature">
+      <div class="text">
+        <div class="eyebrow">Running daily · Claude Code, MCP, n8n, launchd</div>
+        <h3>AI operations system</h3>
+        <dl class="psr">
+          <dt>Problem</dt><dd>Two businesses, three inboxes and a homeschool, all run by one person. Deadlines slipped and replies waited.</dd>
+          <dt>Fix</dt><dd>A set of Claude agents and always-on services, each with one job:
+            <ul class="tight">
+              <li>Inbox agents read all three inboxes and draft replies</li>
+              <li>A daily agent keeps the to-do list at three items and preps the next step</li>
+              <li>Check-ins twice a day and a Sunday review of money and drift</li>
+              <li>A Monday market brief with three decisions</li>
+              <li>A watchdog checks every job every 10 minutes and buzzes a phone once per problem</li>
+            </ul>
+          </dd>
+          <dt>Result</dt><dd>20 systems running daily. Nothing goes out without one tap from a person.</dd>
+        </dl>
+      </div>
+      <div class="evidence">
+        <div class="ev-label">One weekday, start to finish</div>
+        <div class="flow">
+          <div class="step"><b>7:30 AM</b><small>Studio inbox read, brief written, tasks added</small></div>
+          <div class="step"><b>8:15 AM</b><small>Today set to three items, calendars swept</small></div>
+          <div class="step"><b>12:30 and 7:30 PM</b><small>Check-in on the one task that matters most</small></div>
+          <div class="step"><b>Any time</b><small>Drafted replies wait for Send, Edit or Skip</small></div>
+        </div>
+      </div>
+    </article>
+
+    <div class="shots">
+      <figure><img src="assets/shot-ops-map.jpg" alt="Live status page: 5 of 5 agents working, 11 of 11 background jobs running, 143 builds on file"><figcaption>The live status page for the whole system, Nov 11, 2026.</figcaption></figure>
+      <figure><img src="assets/shot-ops-agents.jpg" alt="Scheduled agents with their run times and last runs"><figcaption>Each scheduled agent, when it runs and when it last ran. Private details blurred.</figcaption></figure>
+    </div>
+
+    <article class="feature">
+      <div class="text">
+        <div class="eyebrow">Client project · Microsoft 365</div>
+        <h3>Contractor timekeeping system</h3>
+        <dl class="psr">
+          <dt>Problem</dt><dd>Contractor hours were kept in one person's personal OneDrive and compiled into the client's spreadsheet by hand.</dd>
+          <dt>Fix</dt><dd>Time-entry system in Microsoft 365 (SharePoint, Power Apps, Power Automate):
+            <ul class="tight">
+              <li>Each contractor can see and change only their own entries</li>
+              <li>Times convert to the right time zone, daylight saving included</li>
+              <li>Minutes round to the nearest 15</li>
+              <li>Every entry lands in the client's spreadsheet automatically, with a notification</li>
+              <li>Moved into the company's own account, with written instructions and access rules</li>
+            </ul>
+          </dd>
+          <dt>Result</dt><dd>No more manual compiling. 3,740 contractor hours logged.</dd>
+        </dl>
+      </div>
+      <div class="evidence">
+        <figure style="margin:0 0 18px"><img src="assets/shot-timekeeping-form.jpg" alt="The live time-entry form: project, check-in, check-out, tasks performed" style="width:100%;max-width:300px;display:block;border-radius:12px;border:1px solid rgba(0,0,0,.08)"><figcaption style="font-size:12px;color:var(--muted);margin-top:6px">The live entry form.</figcaption></figure>
+        <div class="ev-label">One entry, start to finish (example)</div>
+        <div class="flow">
+          <div class="step"><b>Contractor logs time</b><small>1:52 to 4:07 PM, Pacific</small></div>
+          <div class="step"><b>Rounded to 15 minutes</b><small>1:45 to 4:00 PM</small></div>
+          <div class="step"><b>Converted to the client's time zone</b><small>4:45 to 7:00 PM, Eastern</small></div>
+          <div class="step"><b>Added to the client's spreadsheet</b><small>2.25 hours</small></div>
+        </div>
+      </div>
+    </article>
+
+    <div class="grid3">
+      <article class="mini">
+        <h3>Market research warehouse</h3>
+        <div class="eyebrow">Python ETL · ClickHouse · text-to-SQL</div>
+        <div class="ba"><span class="from">Guessing</span><span class="arrow">→</span><span class="to">4,265 records</span></div>
+        <figure><img src="assets/shot-warehouse.jpg" alt="Warehouse report: 1,391 owner posts, 475 videos, 664 competitor posts, topics ranked by comments"><figcaption>The weekly warehouse report.</figcaption></figure>
+        <dl class="psr">
+          <dt>Problem</dt><dd>Marketing ran on guesses about what small-business owners care about.</dd>
+          <dt>Fix</dt><dd>One database of what owners post on Reddit and YouTube and what 26 competitors post and advertise. Refreshed every Monday. Agents answer questions from it, using a written dictionary of business terms and a log of past query mistakes.</dd>
+          <dt>Result</dt><dd>Every post and outreach message starts from owners' own words.</dd>
+        </dl>
+      </article>
+      <article class="mini">
+        <h3>Research library</h3>
+        <div class="eyebrow">whisper.cpp · LLM extraction</div>
+        <div class="ba"><span class="from">95 videos and episodes</span><span class="arrow">→</span><span class="to">One playbook</span></div>
+        <dl class="psr">
+          <dt>Problem</dt><dd>The best marketing method found was spread across 95 videos and podcast episodes, some audio only.</dd>
+          <dt>Fix</dt><dd>Collected and transcribed all of it, the audio on the Mac with a free speech-to-text engine. Agents pulled every tool, number and method with its timestamp. A weekly watcher adds new episodes.</dd>
+          <dt>Result</dt><dd>872,000 words turned into an 800-tool index and a ranked playbook in one day.</dd>
+        </dl>
+      </article>
+      <article class="mini">
+        <h3>Content quality gate</h3>
+        <div class="eyebrow">LLM-as-judge evaluation</div>
+        <div class="ba"><span class="from">Draft</span><span class="arrow">→</span><span class="to">Pass or hold</span></div>
+        <figure><img src="assets/shot-gate-card.jpg" alt="A post image that passed the gate"><figcaption>An image for a post that passed the gate.</figcaption></figure>
+        <dl class="psr">
+          <dt>Problem</dt><dd>AI drafts sounded like AI and used words owners don't know.</dd>
+          <dt>Fix</dt><dd>Every draft gets automatic checks, two separate AI readers (a 55-year-old business owner and a 12-year-old) and a 100-point score. Failing drafts are rewritten up to three times, and every rejection is logged with its reason.</dd>
+          <dt>Result</dt><dd>Only passing drafts reach a person.</dd>
+        </dl>
+      </article>
+      <article class="mini">
+        <h3>First agent stack, on OpenAI Codex</h3>
+        <div class="eyebrow">Codex instructions · specialist agents · hooks · SQLite</div>
+        <div class="ba"><span class="from">OpenAI Codex</span><span class="arrow">→</span><span class="to">Claude Code</span></div>
+        <figure><img src="assets/shot-codex-approvals.jpg" alt="Approvals screen: drafted replies wait for Approve, Edit, Defer or Reject"><figcaption>The approvals screen from that era. Records are labeled sample data.</figcaption></figure>
+        <dl class="psr">
+          <dt>Problem</dt><dd>Mail, projects and daily priorities across several businesses needed agents that could act without breaking things.</dd>
+          <dt>Fix</dt><dd>A custom Codex setup of instructions, specialist agents, skills and hooks; an email agent that triaged mail across accounts and drafted follow-ups; an overnight agent fleet that rolled task state into a morning dashboard; a guardrail hook that checks code changes and test evidence before risky changes ship; a SQLite index of every project and tool.</dd>
+          <dt>Result</dt><dd>Replaced by the Claude Code system above in November 2026.</dd>
+        </dl>
+      </article>
+      <article class="mini">
+        <h3>PII masking</h3>
+        <div class="eyebrow">MySQL · synthetic data</div>
+        <div class="ba"><span class="from">Real PII</span><span class="arrow">→</span><span class="to">Masked</span></div>
+        <dl class="psr">
+          <dt>Problem</dt><dd>An insurance company's production database held names, emails, phone numbers, addresses, and policy and claim numbers.</dd>
+          <dt>Fix</dt><dd>Masked all PII with format-matched fake data before any development or version control.</dd>
+          <dt>Result</dt><dd>A working copy with zero real customer data.</dd>
+        </dl>
+      </article>
+      <article class="mini">
+        <h3>Microsoft 365 to Google Workspace migration</h3>
+        <div class="ba"><span class="from">Microsoft 365</span><span class="arrow">→</span><span class="to">Google Workspace</span></div>
+        <dl class="psr">
+          <dt>Problem</dt><dd>A 14-person company needed to leave Microsoft 365.</dd>
+          <dt>Fix</dt><dd>Full migration, done solo: mailboxes, calendars, contacts, aliases, Vault, DNS and mail cutover.</dd>
+          <dt>Result</dt><dd>Whole company moved. Rehired for another project.</dd>
+        </dl>
+      </article>
+      <article class="mini">
+        <h3>Zoho CRM implementation</h3>
+        <div class="ba"><span class="from">No CRM</span><span class="arrow">→</span><span class="to">Zoho CRM</span></div>
+        <dl class="psr">
+          <dt>Problem</dt><dd>A wedding planning company had no CRM.</dd>
+          <dt>Fix</dt><dd>Implemented Zoho CRM and Zoho Projects, moved email to Zoho Mail, rebuilt the website and connected its inquiry form to the CRM.</dd>
+          <dt>Result</dt><dd>Inquiries, clients and projects in one system.</dd>
+        </dl>
+      </article>
+      <article class="mini">
+        <h3>Fitness studio operations app</h3>
+        <div class="ba"><span class="from">Scattered records</span><span class="arrow">→</span><span class="to">One app</span></div>
+        <dl class="psr">
+          <dt>Problem</dt><dd>A fitness studio's roster, member milestones, class playlists, social posts and payroll each lived in a different place.</dd>
+          <dt>Fix</dt><dd>One app for the studio: a member roster that tracks birthdays and class milestones on its own, a class builder that fills each set with fitting songs and exports the playlist, a monthly social plan, and payroll prep from class records with an approval step.</dd>
+          <dt>Result</dt><dd>Runs the studio every day. Payroll is prepped every month.</dd>
+        </dl>
+      </article>
+      <article class="mini">
+        <h3>Custom SharePoint news feed</h3>
+        <div class="eyebrow">SPFx · TypeScript · React</div>
+        <div class="ba"><span class="from">$2,500 a year</span><span class="arrow">→</span><span class="to">Custom build</span></div>
+        <dl class="psr">
+          <dt>Problem</dt><dd>The ready-made staff news feed cost about $2,500 a year.</dd>
+          <dt>Fix</dt><dd>Built a custom SharePoint web part: multiple news feeds, thumbnails, personal settings, accessibility.</dd>
+          <dt>Result</dt><dd>Deployed. No subscription.</dd>
+        </dl>
+      </article>
+      <article class="mini">
+        <h3>SharePoint discussion board</h3>
+        <div class="eyebrow">SPFx · TypeScript · React · PnP JS · PnP PowerShell</div>
+        <div class="ba"><span class="from">No forum</span><span class="arrow">→</span><span class="to">Discussion board</span></div>
+        <figure><img src="assets/shot-board-list.jpg" alt="Discussion board list view with categories, a pinned post and threads"><figcaption>The board, rendered with sample users.</figcaption></figure>
+        <figure><img src="assets/shot-board-thread.jpg" alt="A thread with replies and a marked best answer"><figcaption>A thread with a marked best answer.</figcaption></figure>
+        <dl class="psr">
+          <dt>Problem</dt><dd>An IT services company wanted a discussion forum on its SharePoint intranet.</dd>
+          <dt>Fix</dt><dd>A custom web part, about 2,800 lines of TypeScript and React: threads, replies, categories, search, pinned posts, and My threads and Unanswered views. A PnP PowerShell script creates the SharePoint list behind it.</dd>
+          <dt>Result</dt><dd>Packaged as a deployable SharePoint app with a written deployment guide.</dd>
+        </dl>
+      </article>
+      <article class="mini">
+        <h3>Homeschool day system</h3>
+        <div class="ba"><span class="from">Paperwork from memory</span><span class="arrow">→</span><span class="to">Logged daily</span></div>
+        <figure><img src="assets/shot-homeschool.jpg" alt="Homeschool quick log with resource shelf and a draft daily record"><figcaption>An earlier version of the log, with a fictional student.</figcaption></figure>
+        <dl class="psr">
+          <dt>Problem</dt><dd>Weekly homeschool paperwork had to be rebuilt from memory at each deadline.</dd>
+          <dt>Fix</dt><dd>A dashboard where the student logs the day in three taps on an iPad. It drafts the weekly paperwork for the parent to review. Voice cues on the home's smart speakers keep the school day on schedule, with a phone alert if nobody answers.</dd>
+          <dt>Result</dt><dd>Records build up during the week. Nothing is filed until the parent approves it.</dd>
+        </dl>
+      </article>
+    </div>
+
+    <div class="sites">
+      <div class="sites-head">
+        <h3>Websites</h3>
+        <p>Logos, sites, graphics and copy for more than 15 clients. Two that are live today:</p>
+      </div>
+      <div class="sites-grid">
+        <a class="site" href="https://eventsbygisele.com/" target="_blank" rel="noopener">
+          <img src="assets/site-events.jpg" alt="Wedding planner website home page" loading="lazy" width="1440" height="900">
+          <span><b>Wedding planner</b>Events, galleries and an inquiry form</span>
+        </a>
+        <a class="site" href="https://thefuncles.org/" target="_blank" rel="noopener">
+          <img src="assets/site-nonprofit.jpg" alt="Nonprofit website home page" loading="lazy" width="1440" height="900">
+          <span><b>Family nonprofit</b>Their adventures, family referrals and donations</span>
+        </a>
+      </div>
+      <p class="rescue"><b>Website rescue.</b> Two business sites were hacked. Malware cleaned out and databases repaired. Both back online.</p>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="about">
+      <div>
+        <h2>About</h2>
+      </div>
+      <div>
+        <p>Ashley started out building websites. Each job pulled her further into the systems behind them: email, shared files, staff tools, and now AI.</p>
+        <p>She also owns and runs a local business with employees and has handled its payroll since 2021.</p>
+        <p>Degree in psychology and sociology from Virginia Tech.</p>
+        <p class="eyebrow" style="margin:14px 0 8px">AI agents and LLMs</p>
+        <div class="skills"><span>Claude Code agents and subagents</span><span>OpenAI Codex</span><span>Skills and scheduled tasks</span><span>MCP connectors</span><span>Prompt and context design</span><span>LLM-as-judge evaluation</span><span>Human-in-the-loop approval</span></div>
+        <p class="eyebrow" style="margin:14px 0 8px">Data</p>
+        <div class="skills"><span>ETL pipelines (Python)</span><span>ClickHouse SQL</span><span>Semantic layer for text-to-SQL</span><span>Speech-to-text (whisper.cpp)</span></div>
+        <p class="eyebrow" style="margin:14px 0 8px">Automation and infrastructure</p>
+        <div class="skills"><span>n8n, self-hosted</span><span>GitHub Actions</span><span>Cloudflare DNS and Workers</span><span>Webhooks</span><span>macOS launchd services</span><span>Home Assistant</span></div>
+        <p class="eyebrow" style="margin:14px 0 8px">Microsoft 365</p>
+        <div class="skills"><span>SharePoint Framework (TypeScript, React)</span><span>PnP JS and PnP PowerShell</span><span>Power Apps</span><span>Power Automate</span><span>Item-level permissions</span></div>
+        <p class="eyebrow" style="margin:14px 0 8px">Workspace, CRM and privacy</p>
+        <div class="skills"><span>Microsoft 365 to Google Workspace migration</span><span>Vault, MX and DNS cutover</span><span>Zoho One</span><span>PII masking</span><span>WordPress and MySQL recovery</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="ct-row">
+      <div class="eyebrow">Contact</div>
+      <a class="mail" href="mailto:hello@thesagestack.com">hello@thesagestack.com</a>
+      <div class="quiet"><a href="https://www.linkedin.com/in/ashleyshifflett">LinkedIn</a><a href="https://github.com/ashley494">GitHub</a></div>
+    </div>
+    <div class="signoff" aria-hidden="true">Ashley<span class="sdot">.</span></div>
+  </section>
+
+  <footer>Ashley Shifflett · San Diego County, California</footer>
+</main>
+
+<script>
+(()=>{
+  if(!('IntersectionObserver' in window)) return;
+  const root=document.documentElement;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=matchMedia('(pointer:fine)').matches;
+
+  // Headline: each word rises out of its own line.
+  const h1=document.querySelector('.hero h1');
+  h1.innerHTML=h1.textContent.trim().split(/\s+/).map((w,i)=>`<span class="mw"><span style="--i:${i}">${w}</span></span>`).join(' ');
+
+  // Signoff letters.
+  const sign=document.querySelector('.signoff');
+  const word=sign.firstChild; const letters=[...word.textContent].map((ch,i)=>{const e=document.createElement('span');e.textContent=ch;e.style.setProperty('--i',i);return e;});
+  word.replaceWith(...letters); sign.querySelector('.sdot').style.setProperty('--i',letters.length);
+  if(fine) sign.querySelectorAll('span').forEach(l=>l.addEventListener('pointerenter',()=>{l.classList.add('lift');clearTimeout(l._t);l._t=setTimeout(()=>l.classList.remove('lift'),600);}));
+
+  // What reveals on scroll, and how.
+  const mark=(sel,kind)=>document.querySelectorAll(sel).forEach(el=>el.dataset.mo=kind);
+  mark('.head>*, .feature .text>*, .mini, .about>div, .ct-row>*, .proof>div','up');
+  mark('.evidence','wipe');
+  // Siblings that arrive together come in one after another.
+  document.querySelectorAll('[data-mo]').forEach(el=>{
+    const sibs=[...el.parentElement.children].filter(c=>c.dataset.mo);
+    el.style.setProperty('--d',(Math.min(sibs.indexOf(el),5)*0.09)+'s');
+  });
+  document.querySelectorAll('.flow .step, .flow .out, .sched div').forEach((el,i,all)=>{
+    const sibs=[...el.parentElement.children]; el.style.setProperty('--d',(0.35+sibs.indexOf(el)*0.14)+'s');
+  });
+
+  const watch=[...document.querySelectorAll('[data-mo], .contact')];
+  // Anything already on screen is shown at once, so nothing flashes.
+  const vh=innerHeight;
+  watch.forEach(el=>{const r=el.getBoundingClientRect(); if(r.top<vh && r.bottom>0) el.classList.add('is-in');});
+  root.classList.add('mo');
+
+  const lightGate=ev=>{
+    const steps=[...ev.querySelectorAll('.flow .step')]; if(!steps.length||reduce) return;
+    steps.forEach((s,i)=>setTimeout(()=>{s.classList.add('lit');setTimeout(()=>s.classList.remove('lit'),650);},900+i*450));
+  };
+  const show=el=>{
+    if(el.classList.contains('is-in')&&el.dataset.shown) return;
+    el.classList.add('is-in'); el.dataset.shown=1;
+    if(el.classList.contains('evidence')) lightGate(el);
+    if(el.matches('.proof>div')) count(el.querySelector('strong'));
+  };
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ show(e.target); io.unobserve(e.target);} }),{rootMargin:'100000px 0px -10% 0px',threshold:0});
+  watch.forEach(el=>el.classList.contains('is-in')?show(el):io.observe(el));
+  // Backstop: anything at or above the fold is shown even if the observer is late, so nothing is ever stranded hidden.
+  let pending=watch.filter(el=>!el.dataset.shown);
+  const sweep=()=>{ const line=innerHeight*0.92; pending=pending.filter(el=>{ if(el.getBoundingClientRect().top<line){ show(el); return false;} return true;}); if(!pending.length){ removeEventListener('scroll',sweep); clearInterval(iv);} };
+  addEventListener('scroll',sweep,{passive:true}); const iv=setInterval(sweep,500);
+
+  // Proof numbers count up once.
+  function count(el){
+    if(!el||el.dataset.done||reduce) return; el.dataset.done=1;
+    const raw=el.textContent, end=parseInt(raw.replace(/,/g,''),10), suf=raw.replace(/[\d,]/g,''); if(!end) return;
+    const t0=performance.now(), dur=1400;
+    const step=t=>{const k=Math.min(1,(t-t0)/dur), v=Math.round(end*(1-Math.pow(1-k,4))); el.textContent=v.toLocaleString('en-US')+suf; if(k<1) requestAnimationFrame(step);};
+    requestAnimationFrame(step);
+  }
+
+  if(reduce||!fine) return;
+
+  // A bubble follows the pointer over linked project panels.
+  const zones=[...document.querySelectorAll('[data-bubble]')];
+  if(zones.length){
+    const b=document.createElement('div'); b.className='bubble'; b.setAttribute('aria-hidden','true');
+    document.body.append(b);
+    let x=-200,y=-200,tx=x,ty=y,raf=0;
+    const tick=()=>{x+=(tx-x)*.2;y+=(ty-y)*.2;b.style.setProperty('--x',x+'px');b.style.setProperty('--y',y+'px');raf=Math.abs(tx-x)+Math.abs(ty-y)>.3?requestAnimationFrame(tick):0;};
+    const move=e=>{tx=e.clientX;ty=e.clientY;if(!raf)raf=requestAnimationFrame(tick);};
+    zones.forEach(z=>{
+      z.classList.add('has-bubble');
+      z.addEventListener('pointerenter',e=>{b.innerHTML=z.dataset.bubble+' <svg viewBox="0 0 14 14"><path d="M3 11 L11 3 M5 3 H11 V9"/></svg>'; if(!b.classList.contains('on')){x=tx=e.clientX;y=ty=e.clientY;} b.classList.add('on'); move(e);});
+      z.addEventListener('pointermove',move);
+      z.addEventListener('pointerleave',()=>b.classList.remove('on'));
+    });
+  }
+
+  // The header email button leans toward the pointer.
+  const m=document.querySelector('.mail');
+  if(m){ m.style.transition='transform .6s var(--spring)';
+    m.addEventListener('pointermove',e=>{const r=m.getBoundingClientRect();m.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px,${(e.clientY-r.top-r.height/2)*.35}px)`;});
+    m.addEventListener('pointerleave',()=>m.style.transform='');
+  }
+})();
+</script>
+</body>
+</html>
